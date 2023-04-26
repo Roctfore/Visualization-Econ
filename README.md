@@ -26,6 +26,12 @@ After running Visualization Unemployment Web.py
 
 http://127.0.0.1:8050/
 
+[GDP by state](GDP_by_state.html)
+
+[GDP Growth Rate by state](GDP_Growth_Rate_by_state.html)
+
+[GDP Growth Rate state Linegraph](GDP_Growth_Rate_state_Linegraph.html)
+
 ## About Class
 
 2023 Spring CS-GY 6313/CUSP-GX 6006 Data/Information Visualization
