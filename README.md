@@ -36,7 +36,7 @@ https://github.com/Roctfore/Visualization-Econ
 
 [GDP Growth Rate state Linegraph](GDP_Growth_Rate_state_Linegraph.html)
 
-[Economic Indicators](Economic_Indicators.html)
+[Economic Indicators](Economic Indicators.html)
 
 Overall Web Visualization After running Visualization Web.py
 
