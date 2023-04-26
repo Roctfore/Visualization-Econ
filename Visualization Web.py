@@ -60,7 +60,30 @@ state_gdp_growth_only = state_gdp_growth_only[ (state_gdp_growth_only['GeoFIPS']
 # Convert FIPS to string
 state_gdp_growth_only['year'] = state_gdp_growth_only['year'].astype(int)
 
+CPIAUCSL = pd.read_csv("CPIAUCSL.csv")
+FEDFUNDS = pd.read_csv("FEDFUNDS.csv")
+RECPROUSM156N = pd.read_csv("RECPROUSM156N.csv")
+# Calculate the percentage change for a 12-month period on CPI and multiply by 100
+CPIAUCSL['CPI_pct_change'] = (CPIAUCSL['CPIAUCSL'].pct_change(periods=12)) * 100
+# Create a DataFrame with the given recession periods
+recession_periods = [
+    ("1948-11-01", "1949-10-01"),
+    ("1953-07-01", "1954-05-01"),
+    ("1957-08-01", "1958-04-01"),
+    ("1960-04-01", "1961-02-01"),
+    ("1969-12-01", "1970-11-01"),
+    ("1973-11-01", "1975-03-01"),
+    ("1980-01-01", "1980-07-01"),
+    ("1981-07-01", "1982-11-01"),
+    ("1990-07-01", "1991-03-01"),
+    ("2001-03-01", "2001-11-01"),
+    ("2007-12-01", "2009-06-01"),
+    ("2020-02-01", "2020-04-01")
+]
 
+recessions = pd.DataFrame(recession_periods, columns=['start_date', 'end_date'])
+recessions['start_date'] = pd.to_datetime(recessions['start_date'])
+recessions['end_date'] = pd.to_datetime(recessions['end_date'])
 
 app = dash.Dash(__name__)
 
@@ -87,6 +110,9 @@ app.layout = html.Div([
     ]),
     html.Div([
         dcc.Graph(id='line-chart-gdp-growth', figure=go.Figure())
+    ]),
+    html.Div([
+        dcc.Graph(id='Economic-Indicators', figure=go.Figure())
     ])
 ])
 
@@ -348,6 +374,87 @@ def update_gdp_growth_line_chart(year):
         yaxis_title="GDP Growth Rate",
     )
     return fig_gdp_growth_line
+
+@app.callback(
+    Output('Economic-Indicators', 'figure'),
+    [Input('year-slider', 'value')])
+def fig_Eco_Ind(figure):
+    # Prepare the figure
+    fig_Eco_Ind = go.Figure()
+
+    # Add gray bars for recession periods
+    for index, row in recessions.iterrows():
+        fig_Eco_Ind.add_shape(type="rect",
+                    xref="x",
+                    yref="paper",
+                    x0=row['start_date'],
+                    x1=row['end_date'],
+                    y0=0,
+                    y1=1,
+                    fillcolor="lightgray",
+                    opacity=0.5,
+                    layer="below",
+                    line=dict(width=0))
+
+    fig_Eco_Ind.add_trace(go.Scatter(x=CPIAUCSL['DATE'], y=CPIAUCSL['CPI_pct_change'], \
+                            name="CPI Inflation", visible=True, yaxis='y1', line=dict(color='red'), legendrank=1))
+    fig_Eco_Ind.add_trace(go.Scatter(x=FEDFUNDS['DATE'], y=FEDFUNDS['FEDFUNDS'], \
+                            name="Fed Funds Rate", visible=False, yaxis='y1', line=dict(color='blue'), legendrank=2))
+    fig_Eco_Ind.add_trace(go.Scatter(x=RECPROUSM156N['DATE'], y=RECPROUSM156N['RECPROUSM156N'], \
+                            name="Recession Probabilities", visible=False, yaxis='y2', line=dict(color='darkgray'), legendrank=3))
+
+    # Set x-axis date format to display only the year and add a vertical black line on hover
+    fig_Eco_Ind.update_xaxes(
+        tickformat="%Y",
+        showspikes=True, 
+        spikecolor="black", 
+        spikesnap="cursor", 
+        spikemode="across",
+        spikethickness=1
+    )
+
+    # Add the option to show or hide lines using a dropdown menu
+    fig_Eco_Ind.update_layout(
+        updatemenus=[
+            go.layout.Updatemenu(
+                buttons=list([
+                    dict(label="CPI Inflation",
+                        method="update",
+                        args=[{"visible": [True, False, False]}]),
+                    dict(label="Fed Funds Rate",
+                        method="update",
+                        args=[{"visible": [False, True, False]}]),
+                    dict(label="Recession Probabilities",
+                        method="update",
+                        args=[{"visible": [False, False, True]}]),
+                    dict(label="Show All",
+                        method="update",
+                        args=[{"visible": [True, True, True]}]),
+                    dict(label="Hide All",
+                        method="update",
+                        args=[{"visible": [False, False, False]}])
+                ]),
+                direction="down",
+                pad={"r": 10, "t": 10},
+                showactive=True,
+                x=0.2,
+                xanchor="left",
+                y=1.15,
+                yanchor="top"
+            ),
+        ])
+
+    # Update the layout to add a secondary y-axis on the right side and set hovermode to 'x unified'
+    fig_Eco_Ind.update_layout(
+        yaxis=dict(title="CPI Inflation & Fed Funds Rate", side='left', title_standoff=10),
+        yaxis2=dict(title="Recession Probabilities", overlaying='y', side='right', title_standoff=10),
+        hovermode='x unified',
+        title="Economic Indicators",
+        width=1600,
+        height=800
+    )
+    return fig_Eco_Ind
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
