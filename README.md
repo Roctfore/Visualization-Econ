@@ -1,7 +1,5 @@
 # Class Final Project: Visualization of US Economics Statistics and analyses
 
-[Demo Page](http://127.0.0.1:8050/)
-
 ## About Paper
 
 ### Title
@@ -20,7 +18,7 @@ https://apps.bea.gov/regional/
 https://github.com/Roctfore/Visualization-Econ
 
 ### Web Demo
-unemployment_rates_by_state.html
+[Unemployment Rates by State](unemployment_rates_by_state.html)
 
 ## About Class
 
