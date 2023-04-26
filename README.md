@@ -24,7 +24,7 @@ https://github.com/Roctfore/Visualization-Econ
 
 After running Visualization Unemployment Web.py
 
-[Unemployment Rates by State] (http://127.0.0.1:8050/)
+[http://127.0.0.1:8050/] (http://127.0.0.1:8050/)
 
 ## About Class
 
