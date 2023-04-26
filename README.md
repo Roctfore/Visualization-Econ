@@ -22,15 +22,15 @@ https://github.com/Roctfore/Visualization-Econ
 
 [Unemployment Rates Linegraph](unemployment_rates_state_linegraph.html)
 
-After running Visualization Unemployment Web.py
-
-http://127.0.0.1:8050/
-
 [GDP by state](GDP_by_state.html)
 
 [GDP Growth Rate by state](GDP_Growth_Rate_by_state.html)
 
 [GDP Growth Rate state Linegraph](GDP_Growth_Rate_state_Linegraph.html)
+
+Overall Web Visualization After running Visualization Web.py
+
+http://127.0.0.1:8050/
 
 ## About Class
 
