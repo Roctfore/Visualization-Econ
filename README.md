@@ -1,6 +1,6 @@
 # Class Final Project: Visualization of US Economics Statistics and analyses
 
-[Demo Page](http://losiyu.github.io/paper-reproduce-urban-pulse)
+[Demo Page](http://127.0.0.1:8050/)
 
 ## About Paper
 
