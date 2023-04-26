@@ -19,9 +19,11 @@ https://github.com/Roctfore/Visualization-Econ
 
 ### Web Demo
 [Unemployment Rates by State](unemployment_rates_by_state.html)
+
 [Unemployment Rates Linegraph](unemployment_rates_state_linegraph.html)
 
 After running Visualization Unemployment Web.py
+
 [Unemployment Rates by State] (http://127.0.0.1:8050/)
 
 ## About Class
