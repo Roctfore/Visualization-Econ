@@ -7,12 +7,20 @@ Visualization of US Economics Statistics and analyses
 
 ### Data Source
 Data Sources of Unemployment
+
 https://www.bls.gov/web/laus/ststdnsadata.zip
+
 https://www.bls.gov/web/laus/ststdsadata.zip
+
 http://www.bls.gov/lau/staadata.zip
 
-Data Sources of Personal Consumption Expenditures(PCE), Real Personal Income(RPP), Gross domestic product(GDP)
+Data Sources of Gross domestic product(GDP)
+
 https://apps.bea.gov/regional/
+
+Data Sources of Consumer Price Index for All Urban Consumers(CPI), Smoothed U.S. Recession Probabilities, Fed Funds Rate
+
+https://fred.stlouisfed.org/
 
 ### Github
 https://github.com/Roctfore/Visualization-Econ
@@ -27,6 +35,8 @@ https://github.com/Roctfore/Visualization-Econ
 [GDP Growth Rate by state](GDP_Growth_Rate_by_state.html)
 
 [GDP Growth Rate state Linegraph](GDP_Growth_Rate_state_Linegraph.html)
+
+[Economic Indicators](Economic Indicators.html)
 
 Overall Web Visualization After running Visualization Web.py
 
